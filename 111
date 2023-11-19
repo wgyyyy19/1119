@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    canvas {
+      display: block;
+    }
+
+    #birthday-message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+      text-align: center;
+      z-index: 2;
+      display: none;
+    }
+
+    .firework {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      background-color: #fff;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: explode 1.5s linear;
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background-color: #fff;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: explodeParticle 1.5s linear;
+    }
+
+    @keyframes explode {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(20);
+        opacity: 0;
+      }
+    }
+
+    @keyframes explodeParticle {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(10);
+        opacity: 0;
+      }
+    }
+  </style>
+  <title>Happy Birthday</title>
+</head>
+<body>
+  <canvas id="fireworks"></canvas>
+  <div id="birthday-message">祝金璐生日快乐！</div>
+  <script>
+    // Fireworks animation code
+    function createFirework() {
+      const firework = document.createElement('div');
+      firework.className = 'firework';
+      document.body.appendChild(firework);
+
+      const posX = Math.random() * window.innerWidth;
+      const posY = Math.random() * window.innerHeight - 100;
+      firework.style.left = `${posX}px`;
+      firework.style.top = `${posY}px`;
+
+      const particleCount = 30;
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        firework.appendChild(particle);
+      }
+
+      setTimeout(() => {
+        firework.remove();
+      }, 2000); // Adjust the time based on your fireworks duration
+    }
+
+    function launchFireworks() {
+      setInterval(() => {
+        createFirework();
+      }, 2000); // Adjust the time interval between fireworks
+    }
+
+    // Display birthday message after fireworks
+    function displayBirthdayMessage() {
+      const birthdayMessage = document.getElementById('birthday-message');
+      birthdayMessage.style.display = 'block';
+    }
+
+    // Trigger fireworks and birthday message on page load
+    window.onload = function () {
+      launchFireworks();
+      setTimeout(function () {
+        displayBirthdayMessage();
+      }, 10000); // Adjust the time based on your fireworks duration and interval
+    };
+  </script>
+</body>
+</html>
